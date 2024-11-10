@@ -28,51 +28,14 @@ with sqlite3.connect(db_file_string) as con:
 
 # Begins database operations
 cur = con.cursor()
-cur.execute(""" CREATE TABLE player_ids (
-            yahoo_id integer, 
-            draft_round integer, 
-            twitter_username text, 
-            college text, 
-            stats_id integer, 
-            birthdate text, 
-            sportradar_id text, 
-            espn_id integer,
-            pfr_id text, 
-            rotowire_id integer, 
-            draft_ovr integer,
-            gsis_id text, 
-            merge_name text, 
-            pff_id integer, 
-            ktc_id integer, 
-            draft_year integer, 
-            nfl_id text,
-            fantasy_data_id integer, 
-            rotoworld_id integer, 
-            stats_global_id integer, 
-            mfl_id integer, 
-            team text, 
-            position text, 
-            swish_id integer, 
-            age real, 
-            draft_pick integer, 
-            sleeper_id integer, 
-            height integer, 
-            cbs_id integer, 
-            db_season integer, 
-            cfbref_id text, 
-            name text, 
-            fleaflicker_id integer, 
-            fantasypros_id integer, 
-            weight integer
-            )
-""")
 
 # with open(os.path.join('Stable', 'Player_CSVs', 'Player_Season_Data.csv'), 'r') as file:
 #     # player_ids = file.read()
 #     player_ids = pd.read_csv(file)
 
-
+player_ids = pd.read_csv(os.path.join('Stable', 'Player_CSVs', 'Player_Ids.csv'))
+print(player_ids)
+player_ids.to_sql('player_ids', con, if_exists='fail')
 
 def upload_player_ids(dataframe, upload_table, append=False, replace=True):
     pass
-
