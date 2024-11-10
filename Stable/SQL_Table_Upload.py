@@ -29,13 +29,27 @@ with sqlite3.connect(db_file_string) as con:
 # Begins database operations
 cur = con.cursor()
 
-# with open(os.path.join('Stable', 'Player_CSVs', 'Player_Season_Data.csv'), 'r') as file:
-#     # player_ids = file.read()
-#     player_ids = pd.read_csv(file)
+def drop_table(table):
+    cur.execute(f"DROP TABLE {table}")
 
-player_ids = pd.read_csv(os.path.join('Stable', 'Player_CSVs', 'Player_Ids.csv'))
-print(player_ids)
-player_ids.to_sql('player_ids', con, if_exists='fail')
+def upload_player_ids(dataframe=os.path.join('Stable', 'Player_CSVs', 'Player_Ids.csv'), upload_table='player_ids', append=False, replace=True):
+    player_ids = pd.read_csv(dataframe)
+    player_ids = player_ids.drop(player_ids.columns[0], axis=1)
+    player_ids.reset_index(drop=True, inplace=True)
+    if replace == True: 
+        res='replace' 
+    elif append == True: 
+        res='append' 
+    else: res='fail'
+    player_ids.to_sql(upload_table, con, if_exists=res)
 
-def upload_player_ids(dataframe, upload_table, append=False, replace=True):
-    pass
+def upload_player_info(dataframe=os.path.join('Stable', 'Player_CSVs', 'Player_Info.csv'), upload_table='player_info', append=False, replace=True):
+    player_info = pd.read_csv(dataframe)
+    player_info = player_info.drop(player_info.columns[0], axis=1)
+    player_info.reset_index(drop=True, inplace=True)
+    if replace == True: 
+        res='replace' 
+    elif append == True: 
+        res='append' 
+    else: res='fail'
+    player_info.to_sql(upload_table, con, if_exists=res)
