@@ -53,3 +53,14 @@ def upload_player_info(dataframe=os.path.join('Stable', 'Player_CSVs', 'Player_I
         res='append' 
     else: res='fail'
     player_info.to_sql(upload_table, con, if_exists=res)
+
+def upload_player_season_data(dataframe=os.path.join('Stable', 'Player_CSVs', 'Player_Season_Data.csv'), upload_table='player_season', append=False, replace=True):
+    player_season = pd.read_csv(dataframe)
+    player_season = player_season.drop(player_season.columns[0], axis=1)
+    player_season.reset_index(drop=True, inplace=True)
+    if replace == True: 
+        res='replace' 
+    elif append == True: 
+        res='append' 
+    else: res='fail'
+    player_season.to_sql(upload_table, con, if_exists=res)
