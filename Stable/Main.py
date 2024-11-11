@@ -1,5 +1,6 @@
 import NFL_data_import
 import SQL_Table_Upload
+import SQL_Views
 
 # Pings an nfl API library to pull stats
 NFL_data_import.data_import(refresh=False)
@@ -8,3 +9,6 @@ NFL_data_import.data_import(refresh=False)
 # SQL_Table_Upload.upload_player_ids()
 # SQL_Table_Upload.upload_player_info()
 # SQL_Table_Upload.upload_player_season_data()
+
+for row in SQL_Views.all_active_players_stats():
+    print(row)
