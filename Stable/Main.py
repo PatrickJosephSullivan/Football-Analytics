@@ -5,6 +5,6 @@ import SQL_Table_Upload
 NFL_data_import.data_import(refresh=False)
 
 # Uploads the most recent player_ids, player_info, or player_season csv to the appropriate table
-# SQL_Table_Upload.upload_player_ids()
-# SQL_Table_Upload.upload_player_info()
-# SQL_Table_Upload.upload_player_season_data()
+SQL_Table_Upload.upload_player_ids()
+SQL_Table_Upload.upload_player_info()
+SQL_Table_Upload.upload_player_season_data()

@@ -9,7 +9,7 @@ def data_import(refresh=False):
         # Currently the oldest player in the NFL is Aaron Rodgers as of the 2024-2025 Season
         # Thus we only pull data from 2005 season onward
         # Variables are in df format
-        player_season_data = nfl.import_seasonal_data(range(2005,2024), s_type='REG')
+        player_season_data = nfl.import_seasonal_data(range(2005,2025), s_type='REG')
         player_info = nfl.import_players()
         player_ids = nfl.import_ids()
 
