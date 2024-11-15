@@ -1,6 +1,12 @@
 import NFL_data_import
 import SQL_Table_Upload
 import SQL_Views
+import pandas as pd
+
+pd.set_option('display.max_rows', None)
+pd.set_option('display.max_columns', None)
+pd.set_option('display.width', None)
+pd.set_option('display.max_colwidth', -1)
 
 # Pings an nfl API library to pull stats
 NFL_data_import.data_import(refresh=False)
@@ -10,4 +16,4 @@ NFL_data_import.data_import(refresh=False)
 # SQL_Table_Upload.upload_player_info()
 # SQL_Table_Upload.upload_player_season_data()
 
-SQL_Views.qb_passing_yards()
+print(SQL_Views.qb_passing_yards())
