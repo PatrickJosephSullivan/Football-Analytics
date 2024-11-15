@@ -10,4 +10,4 @@ NFL_data_import.data_import(refresh=False)
 # SQL_Table_Upload.upload_player_info()
 # SQL_Table_Upload.upload_player_season_data()
 
-print(SQL_Views.all_active_players_stats())
+SQL_Views.qb_passing_yards()

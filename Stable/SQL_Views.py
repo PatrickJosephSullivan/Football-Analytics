@@ -54,9 +54,10 @@ def qb_passing_yards():
     ORDER BY team_abbr, name, season
     ;""")
 
-    passing_yards = sql_to_df(cur)
-    
-    return passing_yards
+    df = sql_to_df(cur)
+
+    print(df)
+    return df
 
 # all_player_ids = cur.execute('SELECT gs FROM player_ids')
 # print(all_player_ids.fetchone())
