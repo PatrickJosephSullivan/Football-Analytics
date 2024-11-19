@@ -16,6 +16,8 @@ def data_import(refresh=False):
         # Data Transformations for per game stats
         player_season_data['passing_yards_per_game'] = player_season_data['passing_yards'] / player_season_data['games']
         player_season_data['receptions_per_game'] = player_season_data['receptions'] / player_season_data['games']
+        player_season_data['rush_yards_per_game'] = player_season_data['rushing_yards'] / player_season_data['games']
+        player_season_data['rush_and_receiving_tds_per_game'] = (player_season_data['rushing_tds'] + player_season_data['receiving_tds'] )/ player_season_data['games']
 
         # Dumps dfs to the project folder as Excel to familiarize with the data
         player_season_data.to_excel(os.path.join('Stable', 'Player_CSVs', 'Player Season Data.xlsx'))

@@ -3,10 +3,10 @@ import SQL_Table_Upload
 import SQL_Views
 import pandas as pd
 
-pd.set_option('display.max_rows', None)
-pd.set_option('display.max_columns', None)
+pd.set_option('display.max_rows', 200)
+pd.set_option('display.max_columns', 10)
 pd.set_option('display.width', None)
-pd.set_option('display.max_colwidth', -1)
+pd.set_option('display.max_colwidth', None)
 
 # Pings an nfl API library to pull stats
 NFL_data_import.data_import(refresh=False)
