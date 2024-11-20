@@ -16,6 +16,45 @@ def sql_to_df(sql_cursor):
 
     return df
 
+def show_all_weekly_data():
+    cur.execute("""
+    WITH max_season AS (
+    SELECT player_id, MAX(season) max_season FROM player_season GROUP BY player_id HAVING MAX(season >= 2024)
+    )
+
+    SELECT weekly.*
+    FROM player_ids ids
+    LEFT JOIN player_info info ON ids.gsis_id = info.gsis_id
+    LEFT JOIN player_season season ON ids.gsis_id = season.player_id
+    LEFT JOIN max_season ON ids.gsis_id = max_season.player_id
+    LEFT JOIN player_weekly weekly ON ids.gsis_id = weekly.player_id 
+    WHERE max_season.max_season = 2024
+    ORDER BY team_abbr, name, season
+    ;""")
+
+    all_stats = sql_to_df(cur)
+
+    return all_stats
+
+def show_all_season_data():
+    cur.execute("""
+    WITH max_season AS (
+    SELECT player_id, MAX(season) max_season FROM player_season GROUP BY player_id HAVING MAX(season >= 2024)
+    )
+
+    SELECT season.*
+    FROM player_ids ids
+    LEFT JOIN player_info info ON ids.gsis_id = info.gsis_id
+    LEFT JOIN player_season season ON ids.gsis_id = season.player_id
+    LEFT JOIN max_season ON ids.gsis_id = max_season.player_id
+    WHERE max_season.max_season = 2024
+    ORDER BY team_abbr, name, season
+    ;""")
+
+    all_stats = sql_to_df(cur)
+
+    return all_stats
+
 def all_active_players_stats():
     cur.execute("""
     WITH max_season AS (
