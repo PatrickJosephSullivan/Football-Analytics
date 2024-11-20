@@ -64,3 +64,14 @@ def upload_player_season_data(dataframe=os.path.join('Stable', 'Player_CSVs', 'P
         res='append' 
     else: res='fail'
     player_season.to_sql(upload_table, con, if_exists=res)
+
+def upload_player_weekly_data(dataframe=os.path.join('Stable', 'Player_CSVs', 'Player_Weekly_Data.csv'), upload_table='player_weekly', append=False, replace=True):
+    player_weekly = pd.read_csv(dataframe)
+    player_weekly = player_weekly.drop(player_weekly.columns[0], axis=1)
+    player_weekly.reset_index(drop=True, inplace=True)
+    if replace == True: 
+        res='replace' 
+    elif append == True: 
+        res='append' 
+    else: res='fail'
+    player_weekly.to_sql(upload_table, con, if_exists=res)
