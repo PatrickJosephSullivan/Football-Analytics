@@ -3,6 +3,7 @@ import SQL_Table_Upload
 import SQL_Views
 import pandas as pd
 
+
 pd.set_option('display.max_rows', 200)
 pd.set_option('display.max_columns', 8)
 pd.set_option('display.width', None)
@@ -17,4 +18,4 @@ NFL_data_import.data_import(refresh=False)
 # SQL_Table_Upload.upload_player_season_data()
 # SQL_Table_Upload.upload_player_weekly_data()
 
-print(SQL_Views.show_all_weekly_data())
+
