@@ -1,0 +1,7 @@
+leagues_dict = {'nhl': '8', 'nfl': '9'}
+
+def pull_data(league):
+    res = leagues_dict[f'{league}']
+    return res
+
+print(pull_data('nfl'))
