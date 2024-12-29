@@ -1,44 +1,21 @@
+import json
 import os
-from playwright.sync_api import sync_playwright
-from random import randrange
+from curl_cffi import requests
+from datetime import datetime
 
-# PP login credentials obfuscated by environment variables
-email = os.getenv('email')
-password = os.getenv('pp_pass')
+now = datetime.now()
+timestamp = now.strftime("%Y-%m-%d-%H-%M")
+print(timestamp)
 
+leagues_dict = {'nhl': '8', 'nfl': '9'}
 
-with sync_playwright() as p:
-    # Launch Firefox browser
-    browser = p.firefox.launch(headless=False)  # Set headless=True for headless mode
-    # Spoofs geolocation
-    context = browser.new_context(
-        geolocation={"latitude": 37.7749, "longitude": -122.4194},  # Example: San Francisco
-        permissions=["geolocation"],  # Allow geolocation permissions
-    )
-    page = context.new_page()
+s = requests.Session(impersonate="chrome110")
+response = s.get("https://api.prizepicks.com/projections?league_id=8&per_page=250&single_stat=true&in_game=true&state_code=CA&game_mode=pickem")
+response.raise_for_status()
+pp_proj = response.json()
 
-    # Navigate to a webpage
-    page.goto("https://app.prizepicks.com/login")
+start_path = os.environ.get('pp_scrapes')
+file_path = f'{start_path}/pp_{timestamp}.json'
 
-    # Locate and click the input field by its ID
-    page.locator("#email-input").click()
-
-    # Optionally, clear and type new text into the input field
-    page.locator("#email-input").fill(email)
-
-    # Locate and click the password field
-    page.locator("input[placeholder='Type here...'][type='password']").click()
-    page.locator("input[placeholder='Type here...'][type='password']").fill(password)
-    page.locator("#submit-btn").click()
-    
-    page.wait_for_timeout(randrange(2000, 5000))
-
-    page.wait_for_timeout(10000000)
-
-    # Save the HTML of the current page
-    # html = page.content()
-    # with open("webpage.html", "w", encoding="utf-8") as file:
-    #     file.write(html)
-
-    # Close the browser
-    # browser.close()
+with open(file_path, "w") as file:
+    json.dump(pp_proj, file, indent=4)  # `indent=4` makes the file pretty-printed
