@@ -26,6 +26,7 @@ def parse_json():
              'Sacks',  'Buccaneers',  'Pittsburgh Steelers',  'Rams',  'Minnesota Vikings',  'Pass Yards',  'Houston Texans',  
              'Bills',  'Full',  'Chargers',  'Eagles', 'Rush+Rec Yds', 'Single Stat', 'Packers', 'Rush Attempts', 'Pass TDs', 'Pass Attempts',
              'Receiving Yards']
+    duplicates = 0
     player_projections = {}
     directory = os.environ.get('pp_scrapes')
     file_path = find_most_recent_file(directory)
@@ -45,18 +46,30 @@ def parse_json():
                 name = i['attributes']['display_name']
                 id = i['id']
                 player_projections[id] = {"name": name}
+    n = 0
     for i in stats:
+        n += 1
         atts = i['attributes']
         if 'id' in i['relationships']['new_player']['data']:
             player_id = i['relationships']['new_player']['data']['id']
             if player_id in player_projections:
                 entry = player_projections[player_id]
                 if 'stat_type' and 'line_score' and 'odds_type' in atts:
-                    stat_type = atts['stat_type'] 
+                    stat_type = atts['stat_type']
                     line_score = atts['line_score']
-                    odds_type = atts['odds_type']
-                    proj_data = {odds_type: {stat_type: line_score}}
-                    entry.update(proj_data)
+                    odds_type = atts['odds_type'] 
+                    if stat_type not in entry:
+                        new_stat = {stat_type: {}}
+                        entry.update(new_stat)
+                    if odds_type not in entry[stat_type]:
+                        new_odds_type = {odds_type: []} 
+                        entry[stat_type].update(new_odds_type)
+                    entry[stat_type][odds_type].append(line_score)
+                    # key_declaration = f'{stat_type+' '+odds_type}'
+                    # if key_declaration in entry:
+                        
+                    # proj_data = {key_declaration: line_score}
+                    # entry.update(proj_data)
                 else:
                     'projection data not found'
             else:
@@ -65,4 +78,5 @@ def parse_json():
             print("Player id not present for this projection. Check elsewhere within the data")
     for i in player_projections.values():
         print(i)
+    print(f'Amount of duplicates: {duplicates}')
     return player_projections

@@ -12,7 +12,7 @@ leagues_dict = {'nhl': '8', 'nfl': '9'}
 def pull_data(league):
     league_id = leagues_dict[f"{league}"]
     s = requests.Session(impersonate="chrome110")
-    response = s.get(f"https://api.prizepicks.com/projections?league_id={league_id}&per_page=250&single_stat=true&in_game=true&state_code=CA&game_mode=pickem")
+    response = s.get(f"https://api.prizepicks.com/projections?league_id={league_id}&per_page=250&single_stat=false&in_game=true&state_code=CA&game_mode=pickem")
     print(response)
     response.raise_for_status()
     pp_proj = response.json()
