@@ -3,6 +3,7 @@ import SQL_Table_Upload
 import SQL_Views
 import pandas as pd
 import pull_pp_data
+import parse_pp_json
 
 
 pd.set_option('display.max_rows', 200)
@@ -19,7 +20,7 @@ NFL_data_import.data_import(refresh=False)
 # SQL_Table_Upload.upload_player_season_data()
 # SQL_Table_Upload.upload_player_weekly_data()
 
-pull_pp_data.pull_data('nfl')
-
+# pull_pp_data.pull_data('nfl')
+parse_pp_json.parse_json()
 
 
