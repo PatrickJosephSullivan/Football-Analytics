@@ -16,6 +16,20 @@ def sql_to_df(sql_cursor):
 
     return df
 
+def show_historical_averages():
+    cur.execute("""SELECT ids.name,
+	avg(completions) completions, avg(attempts) attempts, avg(passing_yards) passing_yards, avg(passing_tds) passing_tds, avg(interceptions) interceptions, 
+	avg(sacks) sacks, avg(carries) carries, avg(rushing_yards) rushing_yards, avg(rushing_tds) rushing_tds, avg(receptions) receptions, avg(receiving_yards) receiving_yards,
+	avg(receiving_tds) receiving_tds, avg(special_teams_tds) special_teams_tds, avg(fantasy_points) fantasy_points
+	FROM player_ids ids
+	LEFT JOIN player_info info ON ids.gsis_id = info.gsis_id
+	LEFT JOIN player_weekly weekly ON ids.gsis_id = weekly.player_id
+	GROUP BY ids.name""")
+
+    avg_stats = sql_to_df(cur)
+
+    return avg_stats
+
 def show_all_weekly_data():
     cur.execute("""
     WITH max_season AS (
