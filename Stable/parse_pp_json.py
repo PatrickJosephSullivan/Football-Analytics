@@ -78,5 +78,6 @@ def parse_json():
             print("Player id not present for this projection. Check elsewhere within the data")
     for i in player_projections.values():
         print(i)
-    print(f'Amount of duplicates: {duplicates}')
+    if duplicates > 0:
+        print(f'Amount of duplicates: {duplicates}')
     return player_projections

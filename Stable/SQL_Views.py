@@ -63,7 +63,7 @@ def all_active_players_stats():
 
     SELECT ids.gsis_id, ids.name, info.first_name, info.last_name, info.status, info.team_abbr, info.position, season.season, season.games, season.completions, season.attempts, season.passing_yards,
     season.passing_tds, season.interceptions, season.sacks, season.carries, season.rushing_yards, season.rushing_tds, season.receptions, season.receiving_yards, season.receiving_tds,
-    season.special_teams_tds, season.fantasy_points, season.yards_per_game, season.receptions_per_game
+    season.special_teams_tds, season.fantasy_points
     FROM player_ids ids
     LEFT JOIN player_info info ON ids.gsis_id = info.gsis_id
     LEFT JOIN player_season season ON ids.gsis_id = season.player_id
