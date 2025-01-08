@@ -1,13 +1,17 @@
 import SQL_Views
 import parse_pp_json
+import pandas as pd
 
-def calculate_player_averages(stat):
+def calculate_player_stat_average(stat):
     df = SQL_Views.show_historical_averages()
     stat_column = df[stat]
-    print(df)
-    print(stat_column)
+    name_column = df['name']
+    df = pd.DataFrame({'name': name_column, stat: stat_column})
+    return df
     
+def compare_stat_to_projection(stat):
+    pp_to_stat_dict = {}
+    calculate_player_stat_average(stat)
+    parse_pp_json.parse_json()
 
-# parse_pp_json.parse_json()
-
-calculate_player_averages('rushing_yards')
+compare_stat_to_projection('receiving_yards')

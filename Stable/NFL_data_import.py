@@ -33,6 +33,7 @@ def data_import(refresh=False):
         player_info.to_csv(os.path.join('Stable', 'Player_CSVs', 'Player_Info.csv'))
         player_ids.to_csv(os.path.join('Stable', 'Player_CSVs', 'Player_Ids.csv'))
         week_by_week.to_csv(os.path.join('Stable', 'Player_CSVs', 'Player_Weekly_Data.csv'))
+    # Error handling for a non-boolean input
     else:
         print("Please input a True or False value for the 'refresh' variable")
 

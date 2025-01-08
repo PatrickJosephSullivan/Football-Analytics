@@ -5,6 +5,13 @@ import pandas as pd
 import pull_pp_data
 import parse_pp_json
 
+# This project requires you to setup certain variables in your own environment for privacy and security.
+# The following is the current variables. Please set the directory in your OS's environmental variables.
+"""
+This is where you want your webscrapes from the PrizePicks API to go:
+os.environ.get('pp_scrapes')
+"""
+
 
 pd.set_option('display.max_rows', 200)
 pd.set_option('display.max_columns', 8)
@@ -21,7 +28,7 @@ NFL_data_import.data_import(refresh=False)
 # SQL_Table_Upload.upload_player_weekly_data()
 
 pull_pp_data.pull_data('nfl')
-parse_pp_json.parse_json()
+print(parse_pp_json.parse_json())
 
 # TODO compare player averages to their projections aka build a historical model
 # TODO build a predictive model
