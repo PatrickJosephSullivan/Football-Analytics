@@ -27,9 +27,10 @@ NFL_data_import.data_import(refresh=False)
 # SQL_Table_Upload.upload_player_season_data()
 # SQL_Table_Upload.upload_player_weekly_data()
 
-pull_pp_data.pull_data('nfl')
+# pull_pp_data.pull_data('nfl')
 print(parse_pp_json.parse_json())
 
+# TODO match json stat names to the stat names from the db
 # TODO compare player averages to their projections aka build a historical model
 # TODO build a predictive model
 # TODO add more data to predictive model

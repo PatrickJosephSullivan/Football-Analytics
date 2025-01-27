@@ -32,6 +32,7 @@ def parse_json():
     duplicates = 0
     # initializes main dictionary
     player_projections = {}
+    db_name_translation = {}
     # gets the most recent scrape. See the find_most_recent_file function for more details.
     directory = os.environ.get('pp_scrapes')
     file_path = find_most_recent_file(directory)
@@ -71,7 +72,8 @@ def parse_json():
                 entry = player_projections[player_id]
                 # if all of the appropriate data is available within the data JSON then start putting that in the projections dict
                 if 'stat_type' and 'line_score' and 'odds_type' in atts:
-                    stat_type = atts['stat_type']
+                    stat_type = atts['stat_type'].lower()
+                    stat_type = stat_type.replace(" ", "_")
                     line_score = atts['line_score']
                     odds_type = atts['odds_type'] 
                     # checks if theirs already a stat or odd (standard, demon, etc.) within the players entry

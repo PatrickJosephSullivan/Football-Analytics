@@ -11,7 +11,7 @@ def calculate_player_stat_average(stat):
     
 def compare_stat_to_projection(stat):
     pp_to_stat_dict = {}
-    calculate_player_stat_average(stat)
-    parse_pp_json.parse_json()
+    print(calculate_player_stat_average(stat))
+    print(parse_pp_json.parse_json())
 
 compare_stat_to_projection('receiving_yards')
