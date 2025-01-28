@@ -75,3 +75,9 @@ def upload_player_weekly_data(dataframe=os.path.join('Stable', 'Player_CSVs', 'P
         res='append' 
     else: res='fail'
     player_weekly.to_sql(upload_table, con, if_exists=res)
+
+def upload_all():
+    upload_player_ids()
+    upload_player_info()
+    upload_player_season_data()
+    upload_player_weekly_data()
