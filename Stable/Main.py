@@ -31,6 +31,7 @@ NFL_data_import.data_import(refresh=False)
 print(parse_pp_json.parse_json())
 
 # TODO match json stat names to the stat names from the db
+# TODO Create a method that deletes database backups
 # TODO compare player averages to their projections aka build a historical model
 # TODO build a predictive model
 # TODO add more data to predictive model
